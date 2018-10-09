@@ -6,14 +6,11 @@ var Item = new Schema({
   name: {
     type: String
   },
-  price: {
-    type: Number
-  },
-  picture:{
-    type:String
+  longlat: {
+    type: String
   }
 },{
-    collection: 'picture'
+    collection: 'vending'
 });
 
-module.exports = mongoose.model('Item', Item);
+module.exports = mongoose.model('Vending', Item);

@@ -9,6 +9,8 @@ import App from './App.vue';
 import Create from './components/Create.vue';
 import Edit from './components/Edit.vue';
 import Index from './components/Index.vue';
+import indexVending from './components/vending/Index.vue';
+import CreateVending from './components/vending/Create.vue'
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/nprogress/nprogress.css';
@@ -32,8 +34,18 @@ const routes = [
   },
   {
     name: 'Index',
-    path: '/index',
+    path: '/',
     component: Index
+  },
+  {
+    name: 'indexVending',
+    path: '/vending',
+    component: indexVending
+  },
+  {
+    name: 'CreateVending',
+    path: '/vending/create',
+    component: CreateVending
   },
 ];
 

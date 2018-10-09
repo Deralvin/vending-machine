@@ -6,7 +6,7 @@ const express = require('express'),
     config = require('./config/DB');
 
     const itemRoutes = require('./expressRoutes/itemRoutes');
-
+    const vendingRoutes = require('./expressRoutes/vendingRoutes');
     mongoose.Promise = global.Promise;
     mongoose.connect(config.DB).then(
         () => {console.log('Database is connected') },
@@ -19,9 +19,10 @@ const express = require('express'),
     app.use(cors());
 
     app.use('/items', itemRoutes);
-    
+    app.use('/vendings',vendingRoutes);
     const port = process.env.PORT || 4000;
 
     const server = app.listen(port, function(){
         console.log('Listening on port ' + port);
+    
     });
