@@ -18,7 +18,7 @@
                 <tr v-for="item in items" :key="item._id">
                    
                     <td>{{ item.name }}</td>
-                    <td><img src="" alt=""></td>
+                    <td><img :src="require('./uploads/'+item.picture)"></td>
                     <td>{{ item.price }}</td>
                     <td><router-link :to="{name: 'Edit', params: { id: item._id }}" class="btn btn-primary">Edit</router-link></td>
                     <td><button class="btn btn-danger"  v-on:click="deleteItem(item._id)">Delete</button></td>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-
+import uploads from 'uploads'
     export default {
         data(){
             return{
@@ -51,6 +51,7 @@
               let uri = 'http://localhost:4000/items';
               this.axios.get(uri).then((response) => {
                   this.items = response.data;
+                  console.log(this.items)
               });
             },
             deleteItem(id)

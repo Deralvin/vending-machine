@@ -6,7 +6,7 @@
                 <h3>Add Item</h3>
             </div>
             <div class="card-body">
-                <form v-on:submit.prevent="addItem">
+                <form v-on:submit.prevent="addItem" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Item Name:</label>
                         <input type="text" class="form-control" v-model="item.name"/>
@@ -32,57 +32,56 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   components: {
-      name: 'AddItem'
+    name: "AddItem"
   },
   data() {
-      return {
-          item: {name:'',
-                price:0,
-                picture:''
-                }
+    return {
+      image: "",
+      item: {
+        name: "",
+        price: 0,
+        picture: ""
       }
+    };
   },
   methods: {
-       onFileChange (e) {
-      var files = e.target.files || e.dataTransfer.files
-      var nama=e.target.files[0].name
-      this.item.picture=nama
-      console.log(this.item)
-    //   var exe=e.target.files[0].type
-    //   var finish = nama.split('.')
-    //   var test = current.getDate+'.'+finish[1]
-    //   console.log(test)
-    //   this.item.picure=nama
-      console.log(nama)
-      if (!files.length) {
-        return
-      }
-      // console.log(files[0])
-      // var x = files[0]
-      return this.createImage(files[0])
-      // return new Buffer(x)
+    onFileChange(e) {
+      var files = e.target.files[0] || e.dataTransfer.files;
+      this.image=files
+      var nama = e.target.files[0].name;
+      this.item.picture = nama;
+      console.log(this.item);
+      //   var exe=e.target.files[0].type
+      //   var finish = nama.split('.')
+      //   var test = current.getDate+'.'+finish[1]
+      //   console.log(test)
+      //   this.item.picure=nama
+      console.log(nama);
     },
-    createImage (file) {
-      // var image = new Image()
-      var reader = new FileReader()
-      var vm = this
-
-      reader.onload = (e) => {
-        // vm.image = e.target.result
-        vm.image = file.toString('base64')
-        console.log(vm.image)
-      }
-      reader.readAsDataURL(file)
-    },
-      addItem() {
-         console.log(this.item)
-           let uri = 'http://localhost:4000/items/add';
-            this.axios.post(uri, this.item).then((response) => {
-                console.log(response.data)
-            });
+    addItem() {
+      console.log(this.item);
+      const formData = new FormData();
+      formData.append("imageItem", this.image);
+      const config = {
+        headers: {
+          "content-type": "application/x-www-form-urlencoded"
         }
+      };
+      axios
+        .post("http://localhost:4000/items/upload/image", formData, config)
+        .then(response => {
+          alert("The file is successfully uploaded");
+        })
+        .catch(error => {});
+
+      let uri = "http://localhost:4000/items/add";
+      this.axios.post(uri, this.item).then(response => {
+        console.log(response.data);
+      });
     }
-}
+  }
+};
 </script>
