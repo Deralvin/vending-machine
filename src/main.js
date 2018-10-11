@@ -11,7 +11,8 @@ import Edit from './components/Edit.vue';
 import Index from './components/Index.vue';
 import indexVending from './components/vending/Index.vue';
 import CreateVending from './components/vending/Create.vue'
-
+import indexStock from './components/stock/index.vue'
+import createStock from './components/stock/create.vue'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/nprogress/nprogress.css';
 
@@ -47,6 +48,16 @@ const routes = [
     path: '/vending/create',
     component: CreateVending
   },
+  {
+    name:'indexStock',
+    path:'/stock',
+    component:indexStock
+  },
+  {
+    name:'createStock',
+    path:'/stock/create',
+    component:createStock
+  }
 ];
 
 const router = new VueRouter({ mode: 'history', routes: routes });

@@ -7,6 +7,7 @@ const express = require('express'),
 
     const itemRoutes = require('./expressRoutes/itemRoutes');
     const vendingRoutes = require('./expressRoutes/vendingRoutes');
+    const stockRoutes = require('./expressRoutes/stockRoutes')
     mongoose.Promise = global.Promise;
     mongoose.connect(config.DB).then(
         () => {console.log('Database is connected') },
@@ -21,6 +22,7 @@ const express = require('express'),
 
     app.use('/items', itemRoutes);
     app.use('/vendings',vendingRoutes);
+    app.use('/stocks',stockRoutes)
     const port = process.env.PORT || 4000;
 
     const server = app.listen(port, function(){
