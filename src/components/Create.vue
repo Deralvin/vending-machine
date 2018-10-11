@@ -61,6 +61,7 @@ export default {
       //   this.item.picure=nama
       console.log(nama);
     },
+    
     addItem() {
       console.log(this.item);
       const formData = new FormData();
@@ -73,7 +74,7 @@ export default {
       axios
         .post("http://localhost:4000/items/upload/image", formData, config)
         .then(response => {
-          alert("The file is successfully uploaded");
+          this.$router.push({ name: 'Index' });
         })
         .catch(error => {});
 

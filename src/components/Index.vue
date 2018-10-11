@@ -2,7 +2,7 @@
 <template>
     <div>
         <h1>Items</h1>
-
+    
         <table class="table table-hover">
             <thead>
             <tr>
@@ -18,8 +18,8 @@
                 <tr v-for="item in items" :key="item._id">
                    
                     <td>{{ item.name }}</td>
-                    <td><img :src="require('./uploads/'+item.picture)"></td>
-                    <td>{{ item.price }}</td>
+                    <td><img :src="'http://localhost:4000/'+item.picture" width="50px"></td>
+                    <td>{{item.price}}</td>
                     <td><router-link :to="{name: 'Edit', params: { id: item._id }}" class="btn btn-primary">Edit</router-link></td>
                     <td><button class="btn btn-danger"  v-on:click="deleteItem(item._id)">Delete</button></td>
                 </tr>
@@ -30,9 +30,8 @@
       
     </div>
 </template>
-
 <script>
-import uploads from 'uploads'
+
     export default {
         data(){
             return{
@@ -54,12 +53,16 @@ import uploads from 'uploads'
                   console.log(this.items)
               });
             },
+            getContentImageLink(video_image) {
+   return this.$http.options.root + '/' + video_image;
+},
             deleteItem(id)
             {
               let uri = 'http://localhost:4000/items/delete/'+id;
               this.items.splice(id, 1);
               this.axios.get(uri);
             }
+            
         }
     }
 </script>
